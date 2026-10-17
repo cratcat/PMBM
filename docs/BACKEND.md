@@ -7,11 +7,11 @@
 { "id": "t17", "eq": "CVD-01", "type": "PM",            // PM | BM
   "title": "월간 챔버 클린", "date": "2026-10-20",       // YYYY-MM-DD
   "status": "planned",                                  // planned | progress | done
-  "owner": "박엔지니어", "note": "", "series": "" }      // series: 반복 일정 묶음 ID
+  "owner": "엔지니어", "note": "", "series": "" }      // series: 반복 일정 묶음 ID
 // Equipment
 { "id": "CVD-01", "kind": "CVD", "line": "Bay A" }
 // Log
-{ "at": "2026-10-17 14:32", "user": "김관리", "act": "이동",
+{ "at": "2026-10-17 14:32", "user": "관리자", "act": "이동",
   "id": "t17", "eq": "CVD-01", "title": "월간 챔버 클린", "detail": "날짜 2026-10-20→2026-10-25" }
 ```
 
