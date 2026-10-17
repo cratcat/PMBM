@@ -7,7 +7,7 @@ const mock={
 const store=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}};
 const http=async(p,o={})=>{const r=await fetch(CONFIG.API_BASE+p,{...o,credentials:'include',headers:{'Content-Type':'application/json'}});if(r.status===401){S.user=null;render();throw new Error(401)}if(!r.ok)throw new Error(r.status);return r.status===204?null:r.json()};
 const api={
-  async load(){if(CONFIG.API_BASE){[S.tasks,S.eqs,S.log]=await Promise.all([http('/tasks'),http('/equipment'),http('/logs')]);return}
+  async load(S.eqs=(store('fab-eqs')||mock.eqs).filter(e=>e.kind==='이온주입');){if(CONFIG.API_BASE){[S.tasks,S.eqs,S.log]=await Promise.all([http('/tasks'),http('/equipment'),http('/logs')]);return}
     S.eqs=store('fab-eqs')||mock.eqs;S.tasks=store('fab-tasks')||mock.tasks();S.log=store('fab-log')||[]},
   async saveTask(t){if(CONFIG.API_BASE)await http('/tasks/'+t.id,{method:'PUT',body:JSON.stringify(t)});else store('fab-tasks',S.tasks)},
   async delTask(id){if(CONFIG.API_BASE)await http('/tasks/'+id,{method:'DELETE'});else store('fab-tasks',S.tasks)},
