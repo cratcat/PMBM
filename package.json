@@ -1,0 +1,9 @@
+{
+  "name": "fab-pmbm",
+  "version": "0.1.0",
+  "private": true,
+  "description": "반도체 설비 PM/BM 관리 웹 프론트엔드",
+  "scripts": {
+    "start": "npx --yes serve ."
+  }
+}
