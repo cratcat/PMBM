@@ -1,2 +1,0 @@
-// 탭: 변경 이력
-registerTab({id:'log',label:'이력',render(){return `<div class="bar"><b>변경 이력</b><span class="note">최근 200건 · 등록, 수정, 이동, 복사, 삭제가 자동으로 기록됩니다.</span></div><div class="panel" style="overflow-x:auto"><table><tr><th>일시</th><th>사용자</th><th>작업</th><th>설비</th><th>제목</th><th>변경 내용</th></tr>${S.log.slice(0,200).map(l=>`<tr><td>${l.at}</td><td>${esc(l.user)}</td><td>${esc(l.act)}</td><td>${esc(l.eq)}</td><td>${esc(l.title)}</td><td class="note">${esc(l.detail)}</td></tr>`).join('')||'<tr><td class="note">아직 기록이 없습니다. 일정을 등록하거나 옮기면 남습니다.</td></tr>'}</table></div>`}});
