@@ -2,7 +2,7 @@ import { auth } from "./config.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { saveUserData } from "./api.js";
 
-// 1. view.js 등에서 사용하는 전역 상태 객체 S 정의
+// 1. 전역 상태 객체 S 정의
 export const S = {
   user: null,
   tab: "dashboard",
@@ -10,6 +10,9 @@ export const S = {
   eqs: [],
   log: []
 };
+
+// view.js에서 전역으로 바로 참조할 수 있도록 window 객체에 등록
+window.S = S;
 
 // 호환성을 위한 appState 연결
 export const appState = S;
