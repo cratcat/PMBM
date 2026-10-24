@@ -12,9 +12,7 @@ export function initAuthListener(callback) {
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       appState.currentUser = user;
-      // 사용자 문서 기본 생성 체크
       await saveUserData(user);
-      // 필요 시 Firestore에서 role 정보 가져오기 로직 추가 가능
     } else {
       appState.currentUser = null;
     }
