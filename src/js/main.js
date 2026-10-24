@@ -1,28 +1,7 @@
-import { initAuthListener } from "./state.js";
-import { loginUser, logoutUser } from "./api.js";
-
-document.addEventListener("DOMContentLoaded", () => {
-  const appContainer = document.getElementById("app");
-
-  // 로그인 상태 감지 리스너 실행
-  initAuthListener((user) => {
-    if (user) {
-      // [로그인 성공 상태] 메인 화면 렌더링
-      console.log("로그인됨:", user.email);
-      renderMainDashboard(appContainer, user);
-    } else {
-      // [로그아웃 상태] 로그인 입력 폼 렌더링
-      console.log("로그인이 필요합니다.");
-      renderLoginForm(appContainer);
-    }
-  });
-});
-
-// 로그인 화면 렌더링 함수
 function renderLoginForm(container) {
   container.innerHTML = `
-    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f6f9;">
-      <div style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 350px;">
+    <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; background-color: #1a1a1a; z-index: 9999;">
+      <div style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); width: 350px;">
         <h2 style="margin-bottom: 20px; text-align: center; color: #333;">PM/BM 시스템 로그인</h2>
         <form id="login-form">
           <div style="margin-bottom: 15px;">
@@ -54,30 +33,5 @@ function renderLoginForm(container) {
     } catch (error) {
       errorDiv.textContent = "로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.";
     }
-  });
-}
-
-// 메인 대시보드 화면 렌더링 함수 (로그인 후)
-function renderMainDashboard(container, user) {
-  // 기존 프로젝트의 메인 UI 또는 탭 구조를 여기에 불러오거나 연결할 수 있습니다.
-  container.innerHTML = `
-    <div style="padding: 20px;">
-      <header style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 20px;">
-        <h2>PM/BM Management System</h2>
-        <div>
-          <span style="margin-right: 15px; font-weight: bold; color: #555;">${user.email} 님 환영합니다.</span>
-          <button id="logout-btn" style="background: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">로그아웃</button>
-        </div>
-      </header>
-      <main>
-        <p>Firebase 인증 및 Firestore 데이터베이스 연동이 성공적으로 완료되었습니다!</p>
-        <!-- 기존 프로젝트의 대시보드나 탭 컨텐츠가 들어갈 자리 -->
-      </main>
-    </div>
-  `;
-
-  // 로그아웃 버튼 이벤트 바인딩
-  document.getElementById("logout-btn").addEventListener("click", async () => {
-    await logoutUser();
   });
 }
