@@ -6,12 +6,21 @@
     <title>PM/BM Management System</title>
     <!-- 스타일시트 연결 -->
     <link rel="stylesheet" href="./src/css/style.css">
+
+    <!-- Firebase 모듈 매핑 (Import Map) -->
+    <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+        "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+        "firebase/firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
+      }
+    }
+    </script>
 </head>
 <body>
-    <!-- 앱 컨테이너 및 UI 레이아웃 영역 -->
-    <div id="app">
-        <!-- 화면이 렌더링될 기본 구조 -->
-    </div>
+    <!-- 앱 컨테이너 영역 -->
+    <div id="app"></div>
 
     <!-- 모듈 스크립트 진입점 -->
     <script type="module" src="./src/js/main.js"></script>
