@@ -1,3 +1,23 @@
-// 전역 상태(S)와 권한 확인
-const S={user:null,tab:'cal',m:new Date(today.getFullYear(),today.getMonth(),1),w:addD(today,-today.getDay()),f:{type:'all',eq:'all',owner:'all'},eqs:[],tasks:[],log:[],part:[]};
-const can=()=>!!ROLES[S.user.role].edit;
+import { auth } from "./config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { saveUserData } from "./api.js";
+
+export const appState = {
+  currentUser: null,
+  userRole: "user"
+};
+
+// 로그인 상태 모니터링
+export function initAuthListener(callback) {
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      appState.currentUser = user;
+      // 사용자 문서 기본 생성 체크
+      await saveUserData(user);
+      // 필요 시 Firestore에서 role 정보 가져오기 로직 추가 가능
+    } else {
+      appState.currentUser = null;
+    }
+    if (callback) callback(user);
+  });
+}
