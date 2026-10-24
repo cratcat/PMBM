@@ -10,7 +10,7 @@ export async function saveUserData(user) {
     await setDoc(userRef, {
       uid: user.uid,
       email: user.email,
-      role: "user", // 기본 권한
+      role: "user",
       createdAt: serverTimestamp()
     });
   }
@@ -21,8 +21,8 @@ export async function logUserActivity(uid, actionType, targetData) {
   try {
     await addDoc(collection(db, "activity_logs"), {
       uid: uid,
-      action: actionType,      // 예: "CREATE_PROJECT", "UPDATE_STATUS"
-      target: targetData,      // 대상 데이터 정보
+      action: actionType,
+      target: targetData,
       timestamp: serverTimestamp()
     });
   } catch (error) {
