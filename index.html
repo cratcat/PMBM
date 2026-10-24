@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PM/BM Management System</title>
+  <link rel="stylesheet" href="./src/css/style.css">
+
+  <!-- Firebase 모듈 매핑 (Import Map): 모듈 스크립트보다 먼저 있어야 합니다 -->
+  <script type="importmap">
+  {
+    "imports": {
+      "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+      "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+      "firebase/firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
+    }
+  }
+  </script>
+
+  <!-- 엑셀 내보내기용 SheetJS (jQuery는 쓰지 않으므로 제거: $ 가 utils.js의 $ 와 충돌함) -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="toast"></div>
+  <dialog id="dlg"></dialog>
+
+  <!-- 1) 일반 스크립트: 전역 값과 도구 (순서 중요) -->
+  <script defer src="./src/js/constants.js"></script>
+  <script defer src="./src/js/utils.js"></script>
+  <script defer src="./src/js/helpers.js"></script>
+  <script defer src="./src/js/tabs/calendar.js"></script>
+  <script defer src="./src/js/tabs/kanban.js"></script>
+  <script defer src="./src/js/tabs/week.js"></script>
+  <script defer src="./src/js/tabs/dashboard.js"></script>
+  <script defer src="./src/js/tabs/equipment.js"></script>
+  <script defer src="./src/js/tabs/log.js"></script>
+  <script defer src="./src/js/tabs/particle.js"></script>
+  <script defer src="./src/js/tabs/specout.js"></script>
+  <script defer src="./src/js/tabs/particle-grid.js"></script>
+  <script defer src="./src/js/events.js"></script>
+
+  <!-- 2) ES 모듈: Firebase 로그인/데이터, 화면 렌더링 (위 스크립트 실행 후 실행됨) -->
+  <script type="module" src="./src/js/main.js"></script>
+</body>
+</html>
