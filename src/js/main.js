@@ -1,5 +1,6 @@
 import { initAuthListener } from "./state.js";
 import { loginUser, logoutUser } from "./api.js";
+import { render } from "./view.js"; // 원본 프로젝트의 렌더링 함수 임포트
 
 document.addEventListener("DOMContentLoaded", () => {
   const appContainer = document.getElementById("app");
@@ -7,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 1. 로그인 상태 감지 리스너 실행
   initAuthListener((user) => {
     if (user) {
-      // [로그인 성공 상태] 원래의 PM/BM 화면 렌더링 + 상단 유저바 추가
+      // [로그인 성공 상태] 상단 유저바 표시 + 원래 PM/BM 화면 렌더링
       console.log("로그인됨:", user.email);
       renderOriginalApp(appContainer, user);
     } else {
@@ -56,9 +57,8 @@ function renderLoginForm(container) {
   });
 }
 
-// 로그인 성공 시 원래 PM/BM 앱 화면을 복원하고 상단에 사용자 정보 표시
+// 로그인 성공 시 상단 바를 띄우고, 원래 앱의 UI 컨텐츠 렌더링
 function renderOriginalApp(container, user) {
-  // 기존 앱의 구조를 유지하면서 상단에 유저바 및 로그아웃 버튼 배치
   container.innerHTML = `
     <div id="auth-header" style="display: flex; justify-content: space-between; align-items: center; background: #222; color: white; padding: 10px 20px; font-size: 14px;">
       <span>PM/BM Management System</span>
@@ -68,7 +68,7 @@ function renderOriginalApp(container, user) {
       </div>
     </div>
     <div id="original-app-content">
-      <!-- 기존 PM/BM 프로젝트의 원래 UI 영역 -->
+      <!-- 원래 프로젝트 UI 영역 -->
     </div>
   `;
 
@@ -77,5 +77,12 @@ function renderOriginalApp(container, user) {
     await logoutUser();
   });
 
-  // 만약 기존 프로젝트의 메인 초기화 함수가 있다면 여기서 호출해 주시면 됩니다.
+  // 원래 프로젝트의 화면 렌더링 함수 실행
+  try {
+    if (typeof render === "function") {
+      render();
+    }
+  } catch (error) {
+    console.error("원본 화면 렌더링 중 오류:", error);
+  }
 }
