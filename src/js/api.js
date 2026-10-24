@@ -1,5 +1,7 @@
 import { db } from "./config.js";
-import { doc, setDoc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { auth } from "./config.js"; // auth 객체 가져오기
+import { doc, setDoc, getDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 // 1. 사용자 정보 저장 (최초 로그인/가입 시)
 export async function saveUserData(user) {
@@ -27,5 +29,25 @@ export async function logUserActivity(uid, actionType, targetData) {
     });
   } catch (error) {
     console.error("활동 기록 실패:", error);
+  }
+}
+
+// 3. 로그인 함수
+export async function loginUser(email, password) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
+  } catch (error) {
+    console.error("로그인 오류:", error.message);
+    throw error;
+  }
+}
+
+// 4. 로그아웃 함수
+export async function logoutUser() {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error("로그아웃 오류:", error.message);
   }
 }
