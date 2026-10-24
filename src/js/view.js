@@ -1,6 +1,6 @@
 // 화면 렌더링: 로그인/헤더/탭 전환, 작업 등록·수정 창
 /* ========= 화면 ========= */
-export function render() {
+function render() {
   const a=$('#app');
   if(!S.user){a.innerHTML=`<div class="login"><h1>설비 PM/BM 관리</h1><p class="note">회사 계정(SSO)으로 로그인하면 역할에 맞는 권한이 부여됩니다.</p><button class="pri" style="width:100%" data-a="sso">SSO로 로그인</button><div class="acc" id="acc" hidden><span class="note">데모 계정으로 역할별 화면을 확인하세요.</span>${DEMO.map(u=>`<button data-demo="${u.role}">${u.name} · ${ROLES[u.role].label}</button>`).join('')}</div></div>`;return}
   const T=TABS.filter(t=>!t.roles||t.roles.includes(S.user.role));if(!T.find(t=>t.id===S.tab))S.tab=T[0].id;
@@ -17,3 +17,5 @@ function openTask(id,date,eq,pre){
   <div class="act">${id&&!ro?'<button type="button" data-a="del" style="color:var(--bm)">삭제</button>':''}<span class="sp"></span><button type="button" data-a="close">${ro?'닫기':'취소'}</button>${ro?'':'<button class="pri" type="submit">저장</button>'}</div></form>`;
   const d=$('#dlg');d.dataset.id=id||'';d.showModal();
   $('#tf').onsubmit=e=>{e.preventDefault();const{rep,cnt,...f}=Object.fromEntries(new FormData(e.target));guard(async()=>{if(id){const b={...t};Object.assign(t,f);await api.saveTask(t);logIt('수정',t,diff(b,t))}else{const ds=recur(f.date,rep,+cnt||1),sr='s'+Date.now();for(const [i,dt] of ds.entries()){const n={...t,...f,date:dt,status:i?'planned':f.status,id:'t'+Date.now()+i,series:ds.length>1?sr:''};S.tasks.push(n);await api.saveTask(n);logIt('등록',n,ds.length>1?`반복 ${i+1}/${ds.length}`:'')}}d.close();render();toast('저장했습니다.')})}}
+
+export { render };
