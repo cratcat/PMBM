@@ -1,6 +1,6 @@
 // 화면 렌더링: 로그인/헤더/탭 전환, 작업 등록·수정 창
 /* ========= 화면 ========= */
-function render(){
+export function render() {
   const a=$('#app');
   if(!S.user){a.innerHTML=`<div class="login"><h1>설비 PM/BM 관리</h1><p class="note">회사 계정(SSO)으로 로그인하면 역할에 맞는 권한이 부여됩니다.</p><button class="pri" style="width:100%" data-a="sso">SSO로 로그인</button><div class="acc" id="acc" hidden><span class="note">데모 계정으로 역할별 화면을 확인하세요.</span>${DEMO.map(u=>`<button data-demo="${u.role}">${u.name} · ${ROLES[u.role].label}</button>`).join('')}</div></div>`;return}
   const T=TABS.filter(t=>!t.roles||t.roles.includes(S.user.role));if(!T.find(t=>t.id===S.tab))S.tab=T[0].id;
