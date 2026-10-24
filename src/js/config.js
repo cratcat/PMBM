@@ -4,6 +4,24 @@
    GET /tasks, PUT /tasks/:id, DELETE /tasks/:id, GET /equipment, PUT /equipment/:id
    SAML SSO: 로그인 버튼은 백엔드(SP)의 loginUrl로 이동하고, IdP 인증 후 백엔드가 세션 쿠키를 발급합니다.
         meUrl(GET)이 {name, role}을 돌려주면 그 role로 권한이 적용됩니다(role: admin/engineer/viewer). */
+// CDN 방식 또는 ES 모듈 방식으로 Firebase 불러오기
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "pmbm", // 프로젝트 ID
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// Firebase 초기화
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
 const CONFIG={API_BASE:'',GPM_URL:'',SSO:{loginUrl:'',meUrl:'',logoutUrl:''}};
 const TPL=[['챔버 클린','PM'],['히터/RF 점검','PM'],['필터·O-ring 교체','PM'],['가스 라인 점검','PM'],['긴급 고장 수리','BM']];
 const ROLES={admin:{label:'관리자',edit:true,manage:true},engineer:{label:'엔지니어',edit:true},viewer:{label:'조회자'}};
